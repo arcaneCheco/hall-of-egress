@@ -55,8 +55,10 @@ const useStore = create((set) => ({
       pokemons: state.pokemons.filter((pokemon) => pokemon.id !== id),
     })),
 
-  speed: 0,
-  setSpeed: (num) => set(() => ({ speed: num })),
+  wheelSpeed: 0,
+  setWheelSpeed: (speed) =>
+    set((state) => ({ wheelSpeed: state.wheelSpeed + speed })),
+  //   setSpeed: (num) => set(() => ({ speed: num })),
 
   position: 0,
   setPosition: (num) => set(() => ({ position: num })),
