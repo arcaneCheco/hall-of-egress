@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "ReactNative3dExample",
+    "slug": "ReactNative3dExample",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "ReactNative3dExample"
+}
