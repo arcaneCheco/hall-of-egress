@@ -9,7 +9,7 @@ import React, {
   useCallback,
 } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { useTexture, Html } from "@react-three/drei";
+import { useTexture, Html, OrbitControls } from "@react-three/drei";
 import { animated, useSpring } from "@react-spring/three";
 // import state from "./components/state";
 // import { useStore } from "./store";
@@ -35,12 +35,34 @@ import Camera from "./components/Camera";
 
 // useStore.setState({ wheelSpeed: speed + e.deltaY * 0.002 });
 
+// rotations:
+//   data.current.rotateX(Math.PI / 4); //rotate π/4 around the x-axis
+//   let axis = new Vector3(1, 0, 0); //vector axis
+//   console.log(axis);
+//   data.current.rotateOnAxis(axis, Math.PI / 36); //rotate π/8 around the axis
+//   let axis = new Vector3(0, 1, 0); //vector axis
+//   data.current.translateOnAxis(axis, 1); //translation direction 100 along the axis axis
+
 function App() {
+  // console.log(events);
+  const tex = useMemo(() => new THREE.TextureLoader().load("/space.jpeg"), []);
   return (
     <>
-      <Canvas>
+      <Canvas
+        onCreated={({ scene }) => {
+          scene.background = tex;
+        }}
+      >
         <Lights />
         <Camera />
+        {/* <OrbitControls
+          // ref={controls}
+          // args={[camera, domElement]}
+          enablePan={true}
+          enableZoom={false}
+          enableRotate={true}
+          // onScroll={null}
+        /> */}
         <Suspense fallback={null}>
           <Gallery />
         </Suspense>

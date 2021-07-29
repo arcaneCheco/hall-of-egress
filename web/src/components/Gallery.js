@@ -21,6 +21,8 @@ const Gallery = () => {
   let speed = 0;
   let position = 0;
   let rounded = 0;
+  let diff = 0;
+  let orbitRadius = 1.5;
 
   const meshes = useRef([]);
   meshes.current = Array(5)
@@ -33,19 +35,33 @@ const Gallery = () => {
     position += speed;
     speed *= 0.8; //create some inertia
     meshes.current.forEach((data, i) => {
+      data.current.position.y =
+        orbitRadius * Math.cos((position - i) * (Math.PI / 2.5)) + 0;
+      data.current.position.z =
+        orbitRadius * Math.sin((position - i) * (Math.PI / 2.5)) + 0;
+      if (position < -0.0001) position += 5; // makes it work in both directions
       let dist = Math.min(Math.abs(position - i), 1);
+
       dist = 1 - dist ** 2;
-      let scale = 1 + 0.4 * dist;
-      let posY = i * 1.2 - position * 1.2;
-      data.current.position.y = posY;
+      let scale = 1 + 0.8 * dist;
+
+      // create rotation:
+      let angle = (Math.PI / 2.5) * (position - i);
+
+      data.current.rotation.x = angle - Math.PI / 2;
+
       data.current.scale.set(scale, scale, scale);
+
       data.current.material.uniforms.distanceFromCenter.value = dist;
     });
     rounded = Math.round(position);
-    let diff = rounded - position;
+    diff = rounded - position;
     attractMode
       ? (position += -(position - attractTo) * 0.05)
       : (position += Math.sign(diff) * Math.pow(Math.abs(diff), 0.7) * 0.015);
+
+    position = position % 5;
+
     //   sM.uniforms.time.value += 0.05;
     //   materials.forEach((mat) => {
     //     if (mat.uniforms) mat.uniforms.time.value = sM.uniforms.time.value;
@@ -63,15 +79,24 @@ const Gallery = () => {
 
   return (
     <>
-      <group rotation={isActive ? [-0.3, -0.3, -0.1] : [0, 0, 0]}>
+      <group
+        rotation={isActive ? [-0.3, -0.3, -0.1] : [0, 0, 0]}
+        onClick={() => console.log("hello")}
+      >
         {meshes.current.map((data, i) => (
-          <group ref={imgGroup} position={[0, 1.2 * i, 0]}>
+          <group ref={imgGroup}>
             <mesh ref={data}>
               <planeBufferGeometry args={[1.5, 1.0, 20, 20]} />
               <CustomMaterial imgTex={textures[i]} order={i} />
             </mesh>
           </group>
         ))}
+        <group>
+          <mesh>
+            <sphereBufferGeometry args={[1, 32, 32]} />
+            <meshStandardMaterial color={"blue"} />
+          </mesh>
+        </group>
       </group>
     </>
   );

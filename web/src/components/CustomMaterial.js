@@ -14,8 +14,9 @@ const CustomMaterial = ({ imgTex, order }) => {
         order: { value: order },
       },
       vertexShader: v2,
-      fragmentShader: f2,
+      fragmentShader: f1,
       transparent: true,
+      // wireframe: true,
       side: DoubleSide,
     }),
     []
