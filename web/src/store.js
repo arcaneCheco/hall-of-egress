@@ -1,11 +1,23 @@
 import create from "zustand";
 
+/*
+galleryObj = {
+  id
+  imagePath
+  index
+  descrition
+  dist
+  scale
+  posY
+}
+*/
+
 const useStore = create((set) => ({
   gallery: [
     {
       id: 1,
       imagePath: "/images/A.jpeg",
-      position: 0,
+      positionY: 0,
       index: 0,
       description:
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
@@ -13,7 +25,7 @@ const useStore = create((set) => ({
     {
       id: 2,
       imagePath: "/images/B.jpeg",
-      position: 0,
+      positionY: 0,
       index: 1,
       description:
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
@@ -21,7 +33,7 @@ const useStore = create((set) => ({
     {
       id: 3,
       imagePath: "/images/C.jpeg",
-      position: 0,
+      positionY: 0,
       index: 2,
       description:
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
@@ -29,7 +41,7 @@ const useStore = create((set) => ({
     {
       id: 4,
       imagePath: "/images/D.jpeg",
-      position: 0,
+      positionY: 0,
       index: 3,
       description:
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
@@ -37,12 +49,18 @@ const useStore = create((set) => ({
     {
       id: 5,
       imagePath: "/images/E.jpeg",
-      position: 0,
+      positionY: 0,
       index: 4,
       description:
         "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
     },
   ],
+  updateScrollData: (data) =>
+    set((state) => ({
+      gallery: state.gallery.map((galleryObj, i) =>
+        Object.assign(galleryObj, data[i])
+      ),
+    })),
   addPokemons: (pokemon) =>
     set((state) => ({
       pokemons: [

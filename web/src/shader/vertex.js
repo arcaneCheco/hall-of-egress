@@ -18,10 +18,20 @@ void main() {
 const v2 = `
 varying vec2 vUv;
 uniform float order;
+uniform float distanceFromCenter;
+void main() {
+  vUv = (uv - vec2(0.5)) * (0.8 - 0.2 * distanceFromCenter * (2. - distanceFromCenter)) + vec2(0.5);
+  vec3 pos = position;
+  // pos.y += 1.2*order;
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.);
+}`;
+const v3 = `
+varying vec2 vUv;
+uniform float order;
 void main() {
   vUv = uv;
   vec3 pos = position;
-  pos.y += 1.2*order;
+  // pos.y += 1.2*order;
   gl_Position = projectionMatrix * modelViewMatrix * vec4(pos,1.);
 }`;
 
