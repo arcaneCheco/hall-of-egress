@@ -11,7 +11,7 @@ const Gallery = ({ pos, galleryId }) => {
   const { galleryName, images } = useStore((state) =>
     state.galleries.find((gallery) => gallery.galleryId === galleryId)
   );
-  const textures = useTexture(images.map((img) => img.imagePath));
+  const textures = useTexture(images.map((img) => img.imageSource));
   const descriptions = images.map((img) => img.description);
   const nImages = images.length;
 
