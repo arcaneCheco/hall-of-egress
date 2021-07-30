@@ -58,16 +58,16 @@ function App() {
         <Lights />
         <Camera />
         <gridHelper />
-        {/* <OrbitControls
+        <OrbitControls
           // ref={controls}
           // args={[camera, domElement]}
           enablePan={true}
           enableZoom={false}
           enableRotate={true}
           // onScroll={null}
-        /> */}
+        />
         <Suspense fallback={null}>
-          <Gallery pos={[4, -1, -1]} />
+          <Gallery pos={[4, -1, -1]} galleryId={1} />
         </Suspense>
       </Canvas>
     </>

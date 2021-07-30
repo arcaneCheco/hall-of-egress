@@ -7,81 +7,74 @@ import { useSpring, animated } from "@react-spring/three";
 import { vDesc, vImg } from "../shader/vertex";
 import { fImg, fDesc } from "../shader/fragment";
 
-const Gallery = ({ pos }) => {
-  const gallery = useStore((state) => state.gallery);
-  const textures = useTexture(gallery.map((obj) => obj.imagePath));
-  const descriptions = gallery.map((obj) => obj.description);
-  const n = textures.length;
+const Gallery = ({ pos, galleryId }) => {
+  const { galleryName, images } = useStore((state) =>
+    state.galleries.find((gallery) => gallery.galleryId === galleryId)
+  );
+  const textures = useTexture(images.map((img) => img.imagePath));
+  const descriptions = images.map((img) => img.description);
+  const nImages = images.length;
 
   const [isActive, setIsActive] = useState(true);
 
+  const { activePos } = useSpring({
+    activePos: isActive ? [4, 3, 3.5] : pos,
+    config: { mass: 10, tension: 1000, friction: 300, precision: 0.00001 },
+  });
+
   if (isActive) {
     window.addEventListener("wheel", (e) => {
-      speed += e.deltaY * 0.0002;
+      wheelSpeed += e.deltaY * 0.0002;
     });
   }
 
-  let attractTo = 0;
+  let attractTo = 0; // for later
   let attractMode = false;
-  let speed = 0;
+
+  let wheelSpeed = 0;
   let position = 0;
   let rounded = 0;
   let diff = 0;
   let orbitRadius = 1.5;
 
   const meshes = useRef([]);
-  meshes.current = Array(n)
+  meshes.current = Array(nImages)
     .fill()
     .map((_, i) => meshes.current[i] || createRef());
   const textRefs = useRef([]);
-  textRefs.current = Array(n)
+  textRefs.current = Array(nImages)
     .fill()
     .map((_, i) => textRefs.current[i] || createRef());
-  //   console.log(textRefs);
-
-  const imgGroup = useRef();
 
   const scrollAnimation = () => {
-    position += speed;
-    speed *= 0.6; //create some inertia
-    meshes.current.forEach((data, i) => {
-      data.current.position.y =
-        orbitRadius * Math.cos((position - i) * ((2 * Math.PI) / n)) + 0;
-      data.current.position.z =
-        orbitRadius * Math.sin((position - i) * ((2 * Math.PI) / n)) + 0;
-      if (position < -0.0001) position += n; // makes it work in both directions
-      let dist = Math.min(Math.abs(position - i), 1);
+    position += wheelSpeed;
+    wheelSpeed *= 0.8; //create some inertia
+    meshes.current.forEach((mesh, i) => {
+      mesh.current.position.y =
+        orbitRadius * Math.cos((position - i) * ((2 * Math.PI) / nImages)) + 0;
+      mesh.current.position.z =
+        orbitRadius * Math.sin((position - i) * ((2 * Math.PI) / nImages)) + 0;
+      if (position < -0.0001) position += nImages; // makes it work in both directions
+      let distance = Math.min(Math.abs(position - i), 1);
+      distance = 1 - distance ** 2;
+      let scaleFactor = 1 + 0.8 * distance;
+      let angle = ((2 * Math.PI) / nImages) * (position - i);
+      mesh.current.rotation.x = angle - Math.PI / 2;
+      mesh.current.scale.set(scaleFactor, scaleFactor, scaleFactor);
+      mesh.current.material.uniforms.distanceFromCenter.value = distance;
 
-      dist = 1 - dist ** 2;
-      let scale = 1 + 0.8 * dist;
-
-      // create rotation:
-      let angle = ((2 * Math.PI) / n) * (position - i);
-
-      data.current.rotation.x = angle - Math.PI / 2;
-
-      data.current.scale.set(scale, scale, scale);
-
-      //   console.log(dist);
-
-      data.current.material.uniforms.distanceFromCenter.value = dist;
-
-      //   console.log(textRefs.current[i].current._baseMaterial);
       textRefs.current[
         i
-      ].current._baseMaterial.uniforms.distanceFromCenter.value = dist;
+      ].current._baseMaterial.uniforms.distanceFromCenter.value = distance;
       textRefs.current[i].current._baseMaterial.uniforms.pos.value = position;
     });
     rounded = Math.round(position);
-
-    // setText(descriptions[rounded]);
-
     diff = rounded - position;
     attractMode
       ? (position += -(position - attractTo) * 0.05)
       : (position += Math.sign(diff) * Math.pow(Math.abs(diff), 0.7) * 0.015);
 
-    position = position % n;
+    position = position % nImages;
 
     //   sM.uniforms.time.value += 0.05;
     //   materials.forEach((mat) => {
@@ -89,11 +82,6 @@ const Gallery = ({ pos }) => {
     //   });
   };
   useFrame(scrollAnimation);
-
-  const { activePos } = useSpring({
-    activePos: isActive ? [4, 3, 3.5] : pos,
-    config: { mass: 10, tension: 1000, friction: 300, precision: 0.00001 },
-  });
 
   return (
     <>
@@ -103,10 +91,10 @@ const Gallery = ({ pos }) => {
       >
         <group>
           <group visible={isActive}>
-            {meshes.current.map((data, i) => (
+            {meshes.current.map((mesh, i) => (
               <group>
-                <group ref={imgGroup} rotation={[1.2, 0, 0.75]}>
-                  <mesh ref={data}>
+                <group rotation={[1.2, 0, 0.75]}>
+                  <mesh ref={mesh}>
                     <planeBufferGeometry args={[1.5, 1.0, 20, 20]} />
                     <CustomMaterial
                       imgTex={textures[i]}
