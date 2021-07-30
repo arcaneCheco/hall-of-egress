@@ -1,10 +1,10 @@
-import { v1, v2 } from "../shader/vertex";
-import { f1, f2 } from "../shader/fragment";
-import { DoubleSide } from "three";
+import { v1, v2, v3, v4 } from "../shader/vertex";
+import { fImg, fDesc, f2, f3 } from "../shader/fragment";
+import { DoubleSide, Color } from "three";
 import { useMemo } from "react";
 import useStore from "../store";
 
-const CustomMaterial = ({ imgTex, order }) => {
+const CustomMaterial = ({ imgTex, order, vertexShader, fragmentShader }) => {
   const data = useMemo(
     () => ({
       uniforms: {
@@ -12,9 +12,15 @@ const CustomMaterial = ({ imgTex, order }) => {
         time: { value: 0 },
         distanceFromCenter: { value: 0 },
         order: { value: order },
+        hasTexture: { value: 0 },
+        scale: { value: 0 },
+        shift: { value: order },
+        opacity: { value: 1 },
+        color: { value: new Color("orange") },
+        pos: { value: 0 },
       },
-      vertexShader: v2,
-      fragmentShader: f1,
+      vertexShader,
+      fragmentShader,
       transparent: true,
       // wireframe: true,
       side: DoubleSide,

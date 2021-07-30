@@ -20,6 +20,7 @@ import useStore from "./store";
 import Image from "./components/Image";
 import Gallery from "./components/Gallery";
 import Camera from "./components/Camera";
+import { RGBA_ASTC_10x10_Format } from "three";
 
 // global
 // const state = useStore.getState();
@@ -46,6 +47,7 @@ import Camera from "./components/Camera";
 function App() {
   // console.log(events);
   const tex = useMemo(() => new THREE.TextureLoader().load("/space.jpeg"), []);
+
   return (
     <>
       <Canvas
@@ -55,6 +57,7 @@ function App() {
       >
         <Lights />
         <Camera />
+        <gridHelper />
         {/* <OrbitControls
           // ref={controls}
           // args={[camera, domElement]}
@@ -64,7 +67,7 @@ function App() {
           // onScroll={null}
         /> */}
         <Suspense fallback={null}>
-          <Gallery />
+          <Gallery pos={[4, -1, -1]} />
         </Suspense>
       </Canvas>
     </>

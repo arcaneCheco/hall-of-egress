@@ -1,58 +1,36 @@
 import create from "zustand";
 
-/*
-galleryObj = {
-  id
-  imagePath
-  index
-  descrition
-  dist
-  scale
-  posY
-}
-*/
-
 const useStore = create((set) => ({
   gallery: [
     {
       id: 1,
       imagePath: "/images/A.jpeg",
-      positionY: 0,
-      index: 0,
       description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        "A is for Aptrgangr. The 'again-walker' also known as druagr are viking undead, who may have come back for any number of reasons such as vengeance, or to fulfill a pledge, or if he is a son who has disappointed his father.",
     },
     {
       id: 2,
       imagePath: "/images/B.jpeg",
-      positionY: 0,
-      index: 1,
       description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        "B is for Brunnmigi. In Norse mythology, a troll like being who defiles wells. It is also a kenning applied to foxes.",
     },
     {
       id: 3,
       imagePath: "/images/C.jpeg",
-      positionY: 0,
-      index: 2,
       description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        "C is for Changeling. A changeling child is a fairy child left in place of a human child stolen by the fairies.",
     },
     {
       id: 4,
       imagePath: "/images/D.jpeg",
-      positionY: 0,
-      index: 3,
       description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        "D is for Dark Elf. Dökkálfar in old Norse, live down below the earth. They are different from the light elves in appearance, and even more so in nature.",
     },
     {
       id: 5,
       imagePath: "/images/E.jpeg",
-      positionY: 0,
-      index: 4,
       description:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.",
+        "E is for Eikthyrnir, which means thorny-oak, is a stag which stands upon Valhalla.",
     },
   ],
   updateScrollData: (data) =>
@@ -61,34 +39,6 @@ const useStore = create((set) => ({
         Object.assign(galleryObj, data[i])
       ),
     })),
-  addPokemons: (pokemon) =>
-    set((state) => ({
-      pokemons: [
-        { name: pokemon.name, id: Math.random() * 100 },
-        ...state.pokemons,
-      ],
-    })),
-  removePokemon: (id) =>
-    set((state) => ({
-      pokemons: state.pokemons.filter((pokemon) => pokemon.id !== id),
-    })),
-
-  wheelSpeed: 0,
-  setWheelSpeed: (speed) =>
-    set((state) => ({ wheelSpeed: state.wheelSpeed + speed })),
-  //   setSpeed: (num) => set(() => ({ speed: num })),
-
-  position: 0,
-  setPosition: (num) => set(() => ({ position: num })),
-  getPosition: (state) => {
-    return state.position;
-  },
-
-  attractTo: 0,
-  setAttractTo: (value) => set(() => ({ attractTo: value })),
-
-  attractMode: false,
-  setAttractMode: (value) => set(() => ({ attractMode: value })),
 }));
 
 export default useStore;
