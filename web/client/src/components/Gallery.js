@@ -1,5 +1,5 @@
 import { useFrame } from "@react-three/fiber";
-import useStore from "../store";
+import { useGalleryStore } from "../store";
 import CustomMaterial from "./CustomMaterial";
 import { useTexture, Text, Html } from "@react-three/drei";
 import { useState, useRef, createRef, useEffect } from "react";
@@ -8,11 +8,11 @@ import { vDesc, vImg } from "../shader/vertex";
 import { fImg, fDesc } from "../shader/fragment";
 
 const Gallery = ({ pos, galleryId }) => {
-  const { galleryName, images } = useStore((state) =>
+  const { galleryName, images } = useGalleryStore((state) =>
     state.galleries.find((gallery) => gallery.galleryId === galleryId)
   );
   const textures = useTexture(images.map((img) => img.imageSource));
-  const descriptions = images.map((img) => img.description);
+  const descriptions = images.map((img) => img.imageDescription);
   const nImages = images.length;
 
   const [isActive, setIsActive] = useState(true);
@@ -62,6 +62,8 @@ const Gallery = ({ pos, galleryId }) => {
       mesh.current.rotation.x = angle - Math.PI / 2;
       mesh.current.scale.set(scaleFactor, scaleFactor, scaleFactor);
       mesh.current.material.uniforms.distanceFromCenter.value = distance;
+
+      textRefs.current[i].current.position.y = 1.2 * (position - i);
 
       textRefs.current[
         i
@@ -114,9 +116,9 @@ const Gallery = ({ pos, galleryId }) => {
                     curveRadius={-5}
                     text={descriptions[i]}
                     ref={textRefs.current[i]}
-                    // outlineBlur={0.1}
-                    outlineOpacity={0.1}
-                    // outlineWidth={0.1}
+                    outlineBlur={0.1}
+                    outlineOpacity={0.05}
+                    outlineWidth={0.15}
                   >
                     <CustomMaterial
                       //   imgTex={textures[i]}

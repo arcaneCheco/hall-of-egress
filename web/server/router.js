@@ -12,6 +12,7 @@ const {
   updateGalleryInfo,
 } = require("./controllers/galleryController");
 const {
+  //   getAllImages,
   getImages,
   addImage,
   getImage,
@@ -30,6 +31,7 @@ router.get("/:userName/galleries/:galleryName", getGallery);
 router.delete("/:userName/galleries/:galleryName", deleteGallery);
 router.put("/:userName/galleries/:galleryName", updateGalleryInfo);
 
+// router.get("/:userName/images", getAllImages); // get all images rom every gallery that the user owns
 router.get("/:userName/galleries/:galleryName/images", getImages);
 router.post("/:userName/galleries/:galleryName", addImage);
 router.get("/:userName/galleries/:galleryName/:imageId", getImage);

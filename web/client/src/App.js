@@ -16,7 +16,7 @@ import { animated, useSpring } from "@react-spring/three";
 import Lights from "./components/Lights";
 import Moon from "./components/Moon";
 import CustomMaterial from "./components/CustomMaterial";
-import useStore from "./store";
+import { useGalleryStore } from "./store";
 import Image from "./components/Image";
 import Gallery from "./components/Gallery";
 import Camera from "./components/Camera";

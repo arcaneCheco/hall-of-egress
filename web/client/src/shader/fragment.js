@@ -28,7 +28,7 @@ const fDesc = `
     // gl_FragColor = mix(another, t, distanceFromCenter);
     // gl_FragColor = vec4(color, opacity);
     // gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
-    // gl_FragColor = vec4(0.0/pos, 1.0/pos, 1.0/pos, 1.0);
+    // gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
     gl_FragColor = vec4(color, opacity);
     gl_FragColor.a = distanceFromCenter;
 }`;

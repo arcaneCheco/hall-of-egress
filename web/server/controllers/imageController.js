@@ -1,6 +1,17 @@
 const Gallery = require("../models/Gallery");
 const Image = require("../models/Image");
 
+// exports.getAllImages = async (req, res) => {
+//   // "/:userName/images", GET
+//   try {
+//     const images = await Image.find({ userName: req.params.userName });
+//     res.status(200).send(images);
+//   } catch (err) {
+//     console.log(err);
+//     res.status(404);
+//   }
+// };
+
 exports.addImage = async (req, res) => {
   // "/:userName/galleries/:galleryName", POST
   try {

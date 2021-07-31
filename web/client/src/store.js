@@ -1,48 +1,6 @@
 import create from "zustand";
 
-// database:
-// userCollection = [
-//   {
-//     id: "1",
-//     userName: "user1",
-//   },
-//   {
-//     id: "2",
-//     userName: "user2",
-//   },
-// ];
-// galleryCollection = [
-//   {
-//     userId: "1",
-//     id: "61054ecc300ad7244078b599",
-//     galleryDescription: "the norse bestiary alphabet by thomas Denmark",
-//     galleryName: "norse bestiary alphabet",
-//   },
-//   {
-//     userId: "1",
-//     id: "61054ecc300ad7244078b5wef",
-//     galleryDescription: "list of my own creations",
-//     galleryName: "my stuff",
-//   },
-//   {
-//     userId: "2",
-//     id: "61054ecc300078b5wef",
-//     galleryDescription: "",
-//     galleryName: "hello",
-//   }
-// ]
-// imageCollection = [
-//   {
-//     galleryId: "weewboiewf",
-//     id: "pqohwefiweo",
-//     imageSource: "webewp",
-//     imageDescription: "wegbewpfiew"
-//   }
-// ]
-
-const useStore = create((set) => ({
-  userId: 1,
-  userName: "default user",
+const useGalleryStore = create((set) => ({
   galleries: [
     {
       galleryId: 1,
@@ -92,12 +50,109 @@ const useStore = create((set) => ({
       ],
     },
   ],
-  updateScrollData: (data) =>
-    set((state) => ({
-      gallery: state.gallery.map((galleryObj, i) =>
-        Object.assign(galleryObj, data[i])
-      ),
-    })),
+  // updateScrollData: (data) =>
+  //   set((state) => ({
+  //     gallery: state.gallery.map((galleryObj, i) =>
+  //       Object.assign(galleryObj, data[i])
+  //     ),
+  //   })),
 }));
 
-export default useStore;
+export { useGalleryStore };
+
+// database:
+// userCollection = [
+//   {
+//     _id: "1",
+//     userName: "user1",
+//   },
+//   {
+//     _id: "2",
+//     userName: "user2",
+//   },
+// ];
+// galleryCollection = [
+//   {
+//     ownerId: "1",
+//     _id: "61054ecc300ad7244078b599",
+//     galleryDescription: "the norse bestiary alphabet by thomas Denmark",
+//     galleryName: "norse bestiary alphabet",
+//   },
+//   {
+//     ownerId: "1",
+//     _id: "61054ecc300ad7244078b5wef",
+//     galleryDescription: "list of my own creations",
+//     galleryName: "my stuff",
+//   },
+//   {
+//     ownerId: "2",
+//     _id: "61054ecc300078b5wef",
+//     galleryDescription: "",
+//     galleryName: "hello",
+//   }
+// ]
+// imageCollection = [
+//   {
+//     ownerId: "weewboiewf",
+//     _id: "pqohwefiweo",
+//     imageSource: "webewp",
+//     imageDescription: "wegbewpfiew"
+//   }
+// ]
+
+// import axios from "axios";
+
+// const userName = "checo";
+// const baseUrl = `http://localhost:3001/${userName}`;
+// const [galleries, setGalleries] = useState([]);
+//   const [images, setImages] = useState([]);
+//   useEffect(() => {
+//     // retrive user galleries
+//     (async () => {
+//       const data = await fetchGalleries();
+//       // console.log(data)
+//       setGalleries(data);
+//     })();
+//   }, []);
+//   useEffect(() => {
+//     // retrive user galleries
+//     (async () => {
+//       const data = await fetchImages("hello9");
+//       // console.log(data)
+//       setImages(data);
+//     })();
+//   }, []);
+//   // populate galleries with imaages
+
+//   // fetchGalleries();
+//   // const galleries = fetchGalleries();
+//   console.log(galleries);
+//   console.log(images);
+
+// const fetchGalleries = async () => {
+//   try {
+//     const res = await axios.get(`${baseUrl}/galleries`);
+//     return await res.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+//   // // let data;
+//   // return axios.get(`${baseUrl}/galleries`).then((res) => {
+//   //   return res.data;
+//   // });
+// };
+// const fetchImages = async (galleryName) => {
+//   try {
+//     const res = await axios.get(`${baseUrl}/galleries/${galleryName}/images`);
+//     return res.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// // fetchGalleries();
+
+// // export { fetchGalleries };
+
+// // const testComponent = () => {
+// //   return 1
+// // }
