@@ -4,13 +4,13 @@ const {
   getUser,
   addUser,
 } = require("./controllers/userController");
-// const {
-//   getGalleries,
-//   addGallery,
-//   getGallery,
-//   deleteGallery,
-//   updateGalleryInfo,
-// } = require("./controllers/galleryController");
+const {
+  getGalleries,
+  //   addGallery,
+  //   getGallery,
+  //   deleteGallery,
+  //   updateGalleryInfo,
+} = require("./controllers/galleryController");
 // const {
 //   addImage,
 //   getImage,
@@ -23,7 +23,7 @@ router.get("/_allUsers", _getAllUsers);
 router.get("/:userName", getUser);
 router.post("/createUser", addUser);
 
-// router.get("/:userName/galleries", getGalleries);
+router.get("/:userName/galleries", getGalleries);
 // router.post("/:userName/galleries", addGallery);
 // router.get("/:userName/galleries/:galleryName", getGallery);
 // router.delete("/:userName/galleries/:galleryName", deleteGallery);
