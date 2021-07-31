@@ -63,19 +63,27 @@ exports.getGallery = async (req, res) => {
   }
 };
 
-// exports.deleteGallery = async (req, res) => {
-//   // "/:userName/galleries/:galleryName", DELETE
-//   try {
-//     const { name } = req.params;
-//     const removedGallery = await Gallery.findOneAndDelete({
-//       galleryName: name,
-//     });
-//     res.status(204).send(removedGallery);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(404);
-//   }
-// };
+exports.deleteGallery = async (req, res) => {
+  // "/:userName/galleries/:galleryName", DELETE
+  try {
+    const userName = req.params.userName;
+    const user = await User.findOne({ userName });
+    if (user) {
+      userId = user._id;
+      const { galleryName } = req.body;
+      const deletedGallery = await Gallery.findOneAndDelete({
+        ownerId: userId,
+        galleryName,
+      });
+      res.send(deletedGallery).status(204);
+    } else {
+      res.status(404).send(`user ${userName} does not exist`);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+  }
+};
 
 // exports.updateGalleryInfo = async (req, res) => {
 //   // "/:userName/galleries/:galleryName", PUT
