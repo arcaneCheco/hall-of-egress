@@ -1,9 +1,9 @@
-const Store = require("../models/Store");
+const User = require("../models/User");
 
 exports._getAllUsers = async (req, res) => {
   // "/_allUsers", GET
   try {
-    const users = await Store.find();
+    const users = await User.find();
     res.status(200).send(users);
   } catch (err) {
     console.log(err);
@@ -11,11 +11,11 @@ exports._getAllUsers = async (req, res) => {
   }
 };
 
-exports.getStore = async (req, res) => {
+exports.getUser = async (req, res) => {
   // "/:user", GET
   try {
-    const store = await Store.findOne({ userName: req.params.userName });
-    if (store) res.status(200).send(store);
+    const user = await User.findOne({ userName: req.params.userName });
+    if (user) res.status(200).send(user);
     else res.send("user not found");
   } catch (err) {
     console.log(err);
@@ -23,15 +23,15 @@ exports.getStore = async (req, res) => {
   }
 };
 
-exports.createStore = async (req, res) => {
+exports.addUser = async (req, res) => {
   // "/:user", POST
   try {
     const { userName } = req.body;
-    if (await Store.exists({ userName }))
+    if (await User.exists({ userName }))
       res.status(422).send("user already exists.");
     else {
-      const freshStore = await Store({ userName }).save();
-      res.status(201).send(freshStore);
+      const newUser = await User({ userName }).save();
+      res.status(201).send(newUser);
     }
   } catch (err) {
     console.log(err);
