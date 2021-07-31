@@ -7,40 +7,46 @@ const useStore = create((set) => ({
     {
       galleryId: 1,
       galleryName: "all",
+      galleryDescription: "the norse bestiary alphabet by thomas Denmark",
       images: [
         {
+          imageId: 1,
           imageSource: "/images/A.jpeg",
-          description:
+          imageDescription:
             "A is for Aptrgangr. The 'again-walker' also known as druagr are viking undead, who may have come back for any number of reasons such as vengeance, or to fulfill a pledge, or if he is a son who has disappointed his father.",
         },
         {
+          imageId: 2,
           imageSource: "/images/B.jpeg",
-          description:
+          imageDescription:
             "B is for Brunnmigi. In Norse mythology, a troll like being who defiles wells. It is also a kenning applied to foxes.",
         },
         {
+          imageId: 3,
           imageSource: "/images/C.jpeg",
-          description:
+          imageDescription:
             "C is for Changeling. A changeling child is a fairy child left in place of a human child stolen by the fairies.",
         },
         {
+          imageId: 4,
           imageSource: "/images/D.jpeg",
-          description:
+          imageDescription:
             "D is for Dark Elf. Dökkálfar in old Norse, live down below the earth. They are different from the light elves in appearance, and even more so in nature.",
         },
         {
+          imageId: 5,
           imageSource: "/images/E.jpeg",
-          description:
+          imageDescription:
             "E is for Eikthyrnir, which means thorny-oak, is a stag which stands upon Valhalla.",
         },
         {
           imageSource: "/images/F.jpeg",
-          description:
+          imageDescription:
             "E is for Eikthyrnir, which means thorny-oak, is a stag which stands upon Valhalla.",
         },
         {
           imageSource: "/images/G.jpeg",
-          description:
+          imageDescription:
             "E is for Eikthyrnir, which means thorny-oak, is a stag which stands upon Valhalla.",
         },
       ],

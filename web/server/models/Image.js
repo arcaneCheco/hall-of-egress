@@ -5,7 +5,7 @@ const imageSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  description: {
+  imageDescription: {
     type: String,
     default: "",
   },

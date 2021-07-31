@@ -1,5 +1,5 @@
 const mongoose = require("./index");
-const Gallery = require("./Gallery");
+const { gallerySchema } = require("./Gallery");
 
 const storeSchema = new mongoose.Schema({
   userName: {
@@ -7,7 +7,7 @@ const storeSchema = new mongoose.Schema({
     required: true,
   },
   galleries: {
-    type: [Gallery],
+    type: [gallerySchema],
     default: [],
   },
 });

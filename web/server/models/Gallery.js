@@ -6,6 +6,10 @@ const gallerySchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  galleryDescription: {
+    type: String,
+    default: "",
+  },
   images: {
     type: [imageSchema],
     default: [],
@@ -14,4 +18,4 @@ const gallerySchema = new mongoose.Schema({
 
 const Gallery = mongoose.model("galleries", gallerySchema);
 
-module.exports = Gallery;
+module.exports = { Gallery, gallerySchema };

@@ -1,9 +1,7 @@
-const Gallery = require("../models/Gallery");
-const { Image } = require("../models/Image");
-// const Store = require("../models/Store");
+const { Gallery } = require("../models/Gallery");
 
-/***** find data ********/
 exports.getGalleries = async (req, res) => {
+  // "/:userName/galleries", GET
   try {
     const galleries = await Gallery.find();
     res.status(200).send(galleries);
@@ -12,18 +10,9 @@ exports.getGalleries = async (req, res) => {
     res.status(404);
   }
 };
-exports.getGallery = async (req, res) => {
-  try {
-    const gallery = await Gallery.findOne({ galleryName: req.params.name });
-    res.status(200).send(gallery);
-  } catch (err) {
-    console.log(err);
-    res.status(404);
-  }
-};
 
-/***** add data ********/
 exports.addGallery = async (req, res) => {
+  // "/:userName/galleries", POST
   try {
     const { galleryName } = req.body;
     if (await Gallery.exists({ galleryName }))
@@ -38,31 +27,24 @@ exports.addGallery = async (req, res) => {
   }
 };
 
-exports.addToGallery = async (req, res) => {
+exports.getGallery = async (req, res) => {
+  // "/:userName/galleries/:galleryName", GET
   try {
-    const addedImage = await Image(req.body);
-    await addedImage.validate();
-
-    //update gallery
-    await Gallery.findOneAndUpdate(
-      { galleryName: req.params.name },
-      { $push: { images: addedImage } }
-    );
-
-    res.status(201).send(addedImage);
+    const gallery = await Gallery.findOne({ galleryName: req.params.name });
+    res.status(200).send(gallery);
   } catch (err) {
     console.log(err);
     res.status(404);
   }
 };
 
-/*****delete data *********** */
 exports.deleteGallery = async (req, res) => {
+  // "/:userName/galleries/:galleryName", DELETE
   try {
     const { name } = req.params;
-    // console.log(name);
-    removedObj = await Gallery.findOneAndDelete({ galleryName: name });
-    console.log(removedObj);
+    const removedGallery = await Gallery.findOneAndDelete({
+      galleryName: name,
+    });
     res.status(204).send(removedGallery);
   } catch (err) {
     console.log(err);
@@ -70,4 +52,11 @@ exports.deleteGallery = async (req, res) => {
   }
 };
 
-/*****modify data ********* */
+exports.updateGalleryInfo = async (req, res) => {
+  // "/:userName/galleries/:galleryName", PUT
+  try {
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+  }
+};
