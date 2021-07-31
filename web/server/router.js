@@ -9,7 +9,7 @@ const {
   addGallery,
   getGallery,
   deleteGallery,
-  //   updateGalleryInfo,
+  updateGalleryInfo,
 } = require("./controllers/galleryController");
 // const {
 //   addImage,
@@ -27,7 +27,7 @@ router.get("/:userName/galleries", getGalleries);
 router.post("/:userName/galleries", addGallery);
 router.get("/:userName/galleries/:galleryName", getGallery);
 router.delete("/:userName/galleries/:galleryName", deleteGallery);
-// router.put("/:userName/galleries/:galleryName", updateGalleryInfo);
+router.put("/:userName/galleries/:galleryName", updateGalleryInfo);
 
 // router.post("/:userName/galleries/:galleryName", addImage);
 // router.get("/:userName/galleries/:galleryName/:imageId", getImage);
