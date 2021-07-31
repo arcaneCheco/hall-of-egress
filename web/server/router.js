@@ -4,12 +4,18 @@ const {
   getGallery,
   addGallery,
   addToGallery,
+  deleteGallery,
 } = require("./controllers/galleryController");
 
 router.get("/galleries", getGalleries);
-router.get("/gallery/:id", getGallery);
+
+router.get("/gallery/:name", getGallery);
+
 router.post("/gallery", addGallery);
-router.post("/gallery/:id", addToGallery);
+
+router.post("/gallery/:name", addToGallery);
+
+router.delete("/gallery/:name", deleteGallery);
 
 module.exports = router;
 

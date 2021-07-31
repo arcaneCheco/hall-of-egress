@@ -1,5 +1,5 @@
 const mongoose = require("./index");
-const imageSchema = require("./Image");
+const { imageSchema } = require("./Image");
 
 const gallerySchema = new mongoose.Schema({
   galleryName: {
