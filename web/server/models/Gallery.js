@@ -1,7 +1,10 @@
 const mongoose = require("./index");
-const { imageSchema } = require("./Image");
 
 const gallerySchema = new mongoose.Schema({
+  ownerId: {
+    type: String,
+    required: true,
+  },
   galleryName: {
     type: String,
     required: true,
@@ -10,12 +13,8 @@ const gallerySchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  images: {
-    type: [imageSchema],
-    default: [],
-  },
 });
 
 const Gallery = mongoose.model("galleries", gallerySchema);
 
-module.exports = { Gallery, gallerySchema };
+module.exports = Gallery;

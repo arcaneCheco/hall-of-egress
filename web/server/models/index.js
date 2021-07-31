@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const dbName = process.env.DB_NAME || "DB_STORE";
+const dbName = process.env.DB_NAME || "DB_HALL_OF_EGRESS";
 
 const options = {
   useNewUrlParser: true,

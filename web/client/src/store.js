@@ -1,5 +1,45 @@
 import create from "zustand";
 
+// database:
+// userCollection = [
+//   {
+//     id: "1",
+//     userName: "user1",
+//   },
+//   {
+//     id: "2",
+//     userName: "user2",
+//   },
+// ];
+// galleryCollection = [
+//   {
+//     userId: "1",
+//     id: "61054ecc300ad7244078b599",
+//     galleryDescription: "the norse bestiary alphabet by thomas Denmark",
+//     galleryName: "norse bestiary alphabet",
+//   },
+//   {
+//     userId: "1",
+//     id: "61054ecc300ad7244078b5wef",
+//     galleryDescription: "list of my own creations",
+//     galleryName: "my stuff",
+//   },
+//   {
+//     userId: "2",
+//     id: "61054ecc300078b5wef",
+//     galleryDescription: "",
+//     galleryName: "hello",
+//   }
+// ]
+// imageCollection = [
+//   {
+//     galleryId: "weewboiewf",
+//     id: "pqohwefiweo",
+//     imageSource: "webewp",
+//     imageDescription: "wegbewpfiew"
+//   }
+// ]
+
 const useStore = create((set) => ({
   userId: 1,
   userName: "default user",
