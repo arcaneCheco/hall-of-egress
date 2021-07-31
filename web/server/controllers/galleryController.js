@@ -7,7 +7,7 @@ exports.getGalleries = async (req, res) => {
     const userName = req.params.userName;
     const user = await User.findOne({ userName });
     if (user) {
-      userId = user._id;
+      const userId = user._id;
       const galleries = await Gallery.find({ ownerId: userId });
       res.status(200).send(galleries);
     } else {
@@ -25,7 +25,7 @@ exports.addGallery = async (req, res) => {
     const userName = req.params.userName;
     const user = await User.findOne({ userName });
     if (user) {
-      userId = user._id;
+      const userId = user._id;
       const { galleryName } = req.body;
       if (await Gallery.exists({ ownerId: userId, galleryName })) {
         res.status(404).send(`gallery ${galleryName} already exists`);
@@ -50,7 +50,7 @@ exports.getGallery = async (req, res) => {
     const userName = req.params.userName;
     const user = await User.findOne({ userName });
     if (user) {
-      userId = user._id;
+      const userId = user._id;
       const { galleryName } = req.params;
       const gallery = await Gallery.findOne({ ownerId: userId, galleryName });
       res.status(200).send(gallery);
@@ -69,7 +69,7 @@ exports.deleteGallery = async (req, res) => {
     const userName = req.params.userName;
     const user = await User.findOne({ userName });
     if (user) {
-      userId = user._id;
+      const userId = user._id;
       const { galleryName } = req.body;
       const deletedGallery = await Gallery.findOneAndDelete({
         ownerId: userId,
@@ -91,7 +91,7 @@ exports.updateGalleryInfo = async (req, res) => {
     const userName = req.params.userName;
     const user = await User.findOne({ userName });
     if (user) {
-      userId = user._id;
+      const userId = user._id;
       const updatedGallery = await Gallery.findOneAndUpdate(
         { ownerId: userId, galleryName: req.params.galleryName },
         { ...req.body }

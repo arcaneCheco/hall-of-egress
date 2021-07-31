@@ -11,13 +11,14 @@ const {
   deleteGallery,
   updateGalleryInfo,
 } = require("./controllers/galleryController");
-// const {
-//   addImage,
-//   getImage,
-//   deleteImage,
-//   updateImageDescription,
-//   updateImageSource,
-// } = require("./controllers/imageController");
+const {
+  getImages,
+  addImage,
+  getImage,
+  deleteImage,
+  updateImageDescription,
+  updateImageSource,
+} = require("./controllers/imageController");
 
 router.get("/_allUsers", _getAllUsers);
 router.get("/:userName", getUser);
@@ -29,17 +30,18 @@ router.get("/:userName/galleries/:galleryName", getGallery);
 router.delete("/:userName/galleries/:galleryName", deleteGallery);
 router.put("/:userName/galleries/:galleryName", updateGalleryInfo);
 
-// router.post("/:userName/galleries/:galleryName", addImage);
-// router.get("/:userName/galleries/:galleryName/:imageId", getImage);
-// router.post("/:userName/galleries/:galleryName/:imageId", deleteImage);
-// router.put(
-//   "/:userName/galleries/:galleryName/:imageId/desc",
-//   updateImageDescription
-// );
-// router.put(
-//   "/:userName/galleries/:galleryName/:imageId/source",
-//   updateImageSource
-// );
+router.get("/:userName/galleries/:galleryName/images", getImages);
+router.post("/:userName/galleries/:galleryName", addImage);
+router.get("/:userName/galleries/:galleryName/:imageId", getImage);
+router.delete("/:userName/galleries/:galleryName/:imageId", deleteImage);
+router.put(
+  "/:userName/galleries/:galleryName/:imageId/description",
+  updateImageDescription
+);
+router.put(
+  "/:userName/galleries/:galleryName/:imageId/source",
+  updateImageSource
+);
 
 module.exports = router;
 
