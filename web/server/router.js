@@ -6,7 +6,7 @@ const {
 } = require("./controllers/userController");
 const {
   getGalleries,
-  //   addGallery,
+  addGallery,
   //   getGallery,
   //   deleteGallery,
   //   updateGalleryInfo,
@@ -24,7 +24,7 @@ router.get("/:userName", getUser);
 router.post("/createUser", addUser);
 
 router.get("/:userName/galleries", getGalleries);
-// router.post("/:userName/galleries", addGallery);
+router.post("/:userName", addGallery);
 // router.get("/:userName/galleries/:galleryName", getGallery);
 // router.delete("/:userName/galleries/:galleryName", deleteGallery);
 // router.put("/:userName/galleries/:galleryName", updateGalleryInfo);

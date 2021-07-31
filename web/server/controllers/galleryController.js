@@ -19,38 +19,30 @@ exports.getGalleries = async (req, res) => {
   }
 };
 
-// exports.addGallery = async (req, res) => {
-//   // "/:userName/galleries", POST
-//   try {
-//     const userName = req.params.userName;
-//     const store = await Store.findOne({ userName });
-//     if (!store) res.status(404).send(`user ${userName} does not exist`);
-//     else {
-//       const { galleryName } = req.body;
-
-//       // if (await Gallery.exists({ galleryName }))
-//       if (
-//         store.galleries
-//           .map((gallery) => gallery.galleryName)
-//           .includes(galleryName)
-//       )
-//         res.status(422).send("gallery already exists.");
-//       else {
-//         const addedGallery = await Gallery({ galleryName });
-//         await addedGallery.validate();
-
-//         await Store.findOneAndUpdate(
-//           { userName },
-//           { $push: { galleries: addedGallery } }
-//         );
-//         res.status(201).send(addedGallery);
-//       }
-//     }
-//   } catch (err) {
-//     console.log(err);
-//     res.status(404);
-//   }
-// };
+exports.addGallery = async (req, res) => {
+  // "/:userName", POST
+  try {
+    const userName = req.params.userName;
+    const user = await User.findOne({ userName });
+    if (user) {
+      userId = user._id;
+      const { galleryName } = req.body;
+      if (await Gallery.exists({ ownerId: userId, galleryName })) {
+        res.status(404).send(`gallery ${galleryName} already exists`);
+      } else {
+        const newGallery = await Gallery({ ownerId: userId, ...req.body });
+        await newGallery.validate();
+        newGallery.save();
+        res.status(201).send(newGallery);
+      }
+    } else {
+      res.status(404).send(`user ${userName} does not exist`);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+  }
+};
 
 // exports.getGallery = async (req, res) => {
 //   // "/:userName/galleries/:galleryName", GET
