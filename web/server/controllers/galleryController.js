@@ -20,7 +20,7 @@ exports.getGalleries = async (req, res) => {
 };
 
 exports.addGallery = async (req, res) => {
-  // "/:userName", POST
+  // "/:userName/galleries", POST
   try {
     const userName = req.params.userName;
     const user = await User.findOne({ userName });
@@ -44,16 +44,24 @@ exports.addGallery = async (req, res) => {
   }
 };
 
-// exports.getGallery = async (req, res) => {
-//   // "/:userName/galleries/:galleryName", GET
-//   try {
-//     const gallery = await Gallery.findOne({ galleryName: req.params.name });
-//     res.status(200).send(gallery);
-//   } catch (err) {
-//     console.log(err);
-//     res.status(404);
-//   }
-// };
+exports.getGallery = async (req, res) => {
+  // "/:userName/galleries/:galleryName", GET
+  try {
+    const userName = req.params.userName;
+    const user = await User.findOne({ userName });
+    if (user) {
+      userId = user._id;
+      const { galleryName } = req.params;
+      const gallery = await Gallery.findOne({ ownerId: userId, galleryName });
+      res.status(200).send(gallery);
+    } else {
+      res.status(404).send(`user ${userName} does not exist`);
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(404);
+  }
+};
 
 // exports.deleteGallery = async (req, res) => {
 //   // "/:userName/galleries/:galleryName", DELETE
