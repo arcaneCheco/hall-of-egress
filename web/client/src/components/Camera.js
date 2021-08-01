@@ -1,14 +1,42 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 // import gsap from "gsap";
-// import { useState } from "react";
-// import { useSpring } from "@react-spring/core";
+import { useState } from "react";
+import { useSpring, animated } from "@react-spring/three";
+// import { useSpring, animated } from "@react-spring/three";
 const Camera = () => {
   const { camera, scene } = useThree();
-  camera.position.z = 8;
+  camera.position.z = 9;
   camera.position.y = 5;
   let origin = new THREE.Vector3(0, 0, 0);
   camera.lookAt(origin);
+
+  // const [isActive, setIsActive] = useState(true);
+  // const { activePos } = useSpring({
+  //   activePos: isActive ? [0, 5, 8] : [0, 0, 0],
+  //   config: { mass: 10, tension: 1000, friction: 300, precision: 0.00001 },
+  // });
+  // camera.position.setX(activePos[0]);
+  // camera.position.setY(activePos[1]);
+  // camera.position.setZ(activePos[2]);
+  // camera.lookAt(origin);
+
+  //   const curve = new THREE.EllipseCurve(
+  //   0,
+  //   1, // ax, aY
+  //   r2,
+  //   r2, // xRadius, yRadius
+  //   0,
+  //   2 * Math.PI, // aStartAngle, aEndAngle
+  //   true, // aClockwise
+  //   0 // aRotation
+  // );
+  // //   cur
+
+  // const points = curve.getPoints(10);
+  // //   console.log(points[0].x);
+
+  // let origin = new THREE.Vector3(0, 0, 0);
 
   return 1;
 };

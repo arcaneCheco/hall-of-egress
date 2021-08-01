@@ -40,12 +40,49 @@ const useGalleryStore = create((set) => ({
         {
           imageSource: "/images/F.jpeg",
           imageDescription:
-            "E is for Eikthyrnir, which means thorny-oak, is a stag which stands upon Valhalla.",
+            "F is for Finfolk. A dark mysterious race from Finfolkaheem who kidnap unsuspecting fishermen, or frolicking youth, near the shore and force them into lifelong servitude as a spouse.",
         },
         {
           imageSource: "/images/G.jpeg",
           imageDescription:
-            "E is for Eikthyrnir, which means thorny-oak, is a stag which stands upon Valhalla.",
+            "G is for Gullinbursti (Golden Bristles) The golden boar made by the dwarves and given to Freya who could ride it faster than any horse. Its golden rays shone like the Sun.",
+        },
+      ],
+    },
+    {
+      galleryId: 2,
+      galleryName: "allww",
+      galleryDescription: "the norse bestiary alphabet by thomas Denmark",
+      images: [
+        {
+          imageId: 1,
+          imageSource: "/images/H.jpeg",
+          imageDescription:
+            "H is for Huldra. A troll-like woman living in the woods. She is fair and beautiful, but wild and has a long cow-tail which she hides behind her back upon meeting a human.",
+        },
+        {
+          imageId: 2,
+          imageSource: "/images/I.jpeg",
+          imageDescription:
+            "I is for Idi. One of the rime-giants, he left piles of gold to be divided among his sons. The brothers, in choosing how to divide the treasure, decided that each should take as much as his mouth would hold.",
+        },
+        {
+          imageId: 3,
+          imageSource: "/images/J.jpeg",
+          imageDescription:
+            "J is for Jörmungandr. Also known as the Midgard Serpent, is a sea serpent so large it can surround the earth and grasp its own tail. When it releases its tail, Ragnarök will begin.",
+        },
+        {
+          imageId: 4,
+          imageSource: "/images/K.jpeg",
+          imageDescription:
+            "K is for Kabouter. They are tiny people who live underground, or in mushrooms. They are also spirits who help in the home. The males have long, full beards and wear tall, pointed red hats. They are generally shy of humans and often punish people for spying on them.",
+        },
+        {
+          imageId: 5,
+          imageSource: "/images/L.jpeg",
+          imageDescription:
+            "L is for Landvættir ('land wights') who are spirits of the land. They protect and promote the flourishing of the places where they live, which can be as small as a rock or as large as a section of a country.",
         },
       ],
     },
