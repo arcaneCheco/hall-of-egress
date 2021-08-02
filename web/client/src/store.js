@@ -87,6 +87,11 @@ const useGalleryStore = create((set) => ({
       ],
     },
   ],
+  addToGallery: (image) =>
+    set((state) => ({
+      galleries: state.galleries[0].images.push(image),
+    })),
+
   // updateScrollData: (data) =>
   //   set((state) => ({
   //     gallery: state.gallery.map((galleryObj, i) =>

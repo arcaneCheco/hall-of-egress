@@ -31,7 +31,7 @@ import {
 } from "three";
 import { Pass } from "three/examples/jsm/postprocessing/Pass";
 
-var WaterShader = {
+const WaterShader = {
   uniforms: {
     byp: { value: 0 }, //apply the glitch ?
     tex: { type: "t", value: null },
@@ -73,8 +73,14 @@ var WaterShader = {
      }`,
 };
 
-var WaterPass = function (dt_size) {
-  Pass.call(this);
+// class WaterPass {
+//   constructor(height, width) {
+//     this.height = height;
+//     this.width = width;
+//   }
+
+const WaterPass = function (dt_size) {
+  // Pass.call(this);
   if (WaterShader === undefined)
     console.error("THREE.WaterPass relies on THREE.WaterShader");
   var shader = WaterShader;

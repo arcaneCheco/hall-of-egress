@@ -8,14 +8,22 @@ import { vDesc, vImg } from "./shader/vertex";
 import { fImg, fDesc } from "./shader/fragment";
 import Description from "./Description";
 import { EllipticCurve } from "three";
+import Planet from "./Planet";
+// import Effects from "./Effects";
 
 const Gallery = ({ pos, galleryId, planetColor }) => {
   let attractMode = false;
   let attractTo = 0;
 
-  const { galleryName, images } = useGalleryStore((state) =>
-    state.galleries.find((gallery) => gallery.galleryId === galleryId)
+  let { images } = useGalleryStore((state) => {
+    console.log(state.galleries);
+    return state.galleries.find((gallery) => gallery.galleryId === galleryId);
+  });
+  useGalleryStore.subscribe(
+    (prev, next) => ({ images } = next),
+    (state) => state.galleries[0]
   );
+
   const textures = useTexture(images.map((img) => img.imageSource));
 
   const descriptions = images.map((img) => img.imageDescription);
@@ -137,7 +145,7 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
         <group>
           <group visible={isActive}>
             {meshes.current.map((mesh, i) => (
-              <group>
+              <group key={i}>
                 <group rotation={[1.2, 0, 0.95]}>
                   <mesh ref={mesh}>
                     <planeBufferGeometry args={[1.5, 1.0, 20, 20]} castShadow />
@@ -176,7 +184,8 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
               </group>
             ))}
           </group>
-          <group onClick={() => setIsActive(!isActive)} ref={planet}>
+
+          {/* <group onClick={() => setIsActive(!isActive)} ref={planet}>
             <mesh>
               <sphereBufferGeometry args={[1.5, 32, 32]} />
               <meshStandardMaterial
@@ -185,6 +194,13 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
                 castShadow
               />
             </mesh>
+          </group> */}
+          <group ref={planet} onClick={() => setIsActive(!isActive)}>
+            <Planet
+              planetColor={planetColor}
+              isActive={isActive}
+              setIsActive={setIsActive}
+            />
           </group>
         </group>
       </animated.group>

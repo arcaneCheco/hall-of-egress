@@ -42,6 +42,7 @@ export default function Particles({ count, mouse }) {
       const a = Math.cos(t) + Math.sin(t * 1) / 10;
       const b = Math.sin(t) + Math.cos(t * 2) / 10;
       const s = Math.cos(t);
+      const s2 = Math.cos(t) * 0.5;
       particle.mx += (mouse.current[0] - particle.mx) * 0.01;
       particle.my += (mouse.current[1] * -1 - particle.my) * 0.01;
       // Update the dummy object
@@ -59,7 +60,7 @@ export default function Particles({ count, mouse }) {
           Math.cos((t / 10) * factor) +
           (Math.sin(t * 3) * factor) / 10
       );
-      dummy.scale.set(s, s, s);
+      dummy.scale.set(s2, s2, s2);
       dummy.rotation.set(s * 5, s * 5, s * 5);
       dummy.updateMatrix();
       // And apply the matrix to the instanced item
