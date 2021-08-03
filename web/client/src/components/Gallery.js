@@ -1,27 +1,25 @@
 import { useFrame } from "@react-three/fiber";
-import { useGalleryStore } from "../store";
 import CustomMaterial from "./CustomMaterial";
-import { useTexture, Text, Html, useAspect } from "@react-three/drei";
-import { useState, useRef, createRef, useEffect, memo, useMemo } from "react";
+import { useTexture, Text } from "@react-three/drei";
+import { useState, useRef, createRef, useEffect, useMemo } from "react";
 import { useSpring, animated } from "@react-spring/three";
 import { vDesc, vImg } from "./shader/vertex";
 import { fImg, fDesc } from "./shader/fragment";
-import Description from "./Description";
-import { EllipticCurve } from "three";
 import Planet from "./Planet";
-// import Effects from "./Effects";
+import { useImageStore } from "../store2";
 
 const Gallery = ({ pos, galleryId, planetColor }) => {
   let attractMode = false;
   let attractTo = 0;
 
-  let { images } = useGalleryStore((state) => {
-    console.log(state.galleries);
-    return state.galleries.find((gallery) => gallery.galleryId === galleryId);
-  });
-  useGalleryStore.subscribe(
-    (prev, next) => ({ images } = next),
-    (state) => state.galleries[0]
+  let images = useImageStore((state) =>
+    state.images.filter((image) => image.ownerId === galleryId)
+  );
+  useImageStore.subscribe(
+    (prev, next) => {
+      images = next;
+    },
+    (state) => state.images.filter((image) => image.ownerId === galleryId)
   );
 
   const textures = useTexture(images.map((img) => img.imageSource));
@@ -42,18 +40,10 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
   };
   if (isActive) {
     window.addEventListener("wheel", wheelFunc);
-    // window.removeEventListener("wheel", wheelFunc);
   }
-  // if (!isActive) {
-  //   window.removeEventListener("wheel", wheelFunc);
-  // }
-  // if (attractMode) {
-
-  // }
 
   let wheelSpeed = 0;
   let position = 0;
-  // let rounded = 0;
   let diff = 0;
   let orbitRadius = 2.2;
 
@@ -61,7 +51,9 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
   meshes.current = Array(nImages)
     .fill()
     .map((_, i) => meshes.current[i] || createRef());
+
   const textRefs = useRef([]);
+
   textRefs.current = Array(nImages)
     .fill()
     .map((_, i) => textRefs.current[i] || createRef());
@@ -70,7 +62,6 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
   const planet = useRef();
 
   const scrollAnimation = () => {
-    // if (!isEdit) position += wheelSpeed;
     position += wheelSpeed;
     wheelSpeed *= 0.8; //create some inertia
     meshes.current.forEach((mesh, i) => {
@@ -93,7 +84,6 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
         i
       ].current._baseMaterial.uniforms.distanceFromCenter.value = distance;
     });
-    // rounded = Math.round(position);
     diff = Math.round(position) - position;
     attractMode
       ? (position += -(position - attractTo) * 0.55)
@@ -108,15 +98,9 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
     planet.current.position.y += Math.sin(time * 0.8) * 0.0005;
     planet.current.position.z += Math.sin(time * 0.8) * 0.0005;
     planet.current.position.x += Math.sin(time * 0.8) * 0.0005;
-
-    //   materials.forEach((mat) => {
-    //     if (mat.uniforms) mat.uniforms.time.value = sM.uniforms.time.value;
-    //   });
   };
 
   useFrame(scrollAnimation);
-
-  const [descs, setDescs] = useState(descriptions);
 
   window.addEventListener("keydown", (e) => {
     if (textRefs.current[attractTo].current) {
@@ -137,7 +121,6 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
     attractTo = i;
     attractMode = !attractMode;
   };
-  const moonTex = useTexture("/moon.jpeg");
 
   return (
     <>
@@ -165,7 +148,7 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
                   <Text
                     maxWidth={1.2}
                     curveRadius={-5}
-                    text={descs[i]}
+                    text={descriptions[i]}
                     ref={textRefs.current[i]}
                     outlineBlur={0.1}
                     outlineOpacity={0.05}
@@ -184,22 +167,12 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
               </group>
             ))}
           </group>
-
-          {/* <group onClick={() => setIsActive(!isActive)} ref={planet}>
-            <mesh>
-              <sphereBufferGeometry args={[1.5, 32, 32]} />
-              <meshStandardMaterial
-                color={planetColor}
-                map={useTexture("/moon.jpeg")}
-                castShadow
-              />
-            </mesh>
-          </group> */}
           <group ref={planet} onClick={() => setIsActive(!isActive)}>
             <Planet
               planetColor={planetColor}
               isActive={isActive}
               setIsActive={setIsActive}
+              ownerId={galleryId}
             />
           </group>
         </group>

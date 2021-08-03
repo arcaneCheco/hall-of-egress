@@ -1,13 +1,9 @@
 import * as THREE from "three";
 import React, { useRef, useMemo } from "react";
 import { extend, useFrame, useThree } from "@react-three/fiber";
-// import * as meshline from "threejs-meshline";
-// import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "threejs-meshline";
 import { MeshLine, MeshLineMaterial, MeshLineRaycast } from "threejs-meshline";
 
 extend({ MeshLine, MeshLineMaterial });
-
-// extend(meshline);
 
 const r = () => Math.max(0.2, Math.random());
 

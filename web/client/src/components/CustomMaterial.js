@@ -1,8 +1,5 @@
-// import { v1, v2, v3, v4 } from "../shader/vertex";
-import { fImg, fDesc, f2, f3 } from "./shader/fragment";
 import { DoubleSide, Color } from "three";
 import { useMemo } from "react";
-import useStore from "../store";
 
 const CustomMaterial = ({ imgTex, order, vertexShader, fragmentShader }) => {
   const data = useMemo(

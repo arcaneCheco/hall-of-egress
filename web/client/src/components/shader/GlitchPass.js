@@ -95,7 +95,7 @@ var DigitalGlitch = {
 };
 
 var GlitchPass = function (dt_size) {
-  Pass.call(this);
+  // Pass.call(this);
   if (DigitalGlitch === undefined)
     console.error("THREE.GlitchPass relies on THREE.DigitalGlitch");
   var shader = DigitalGlitch;

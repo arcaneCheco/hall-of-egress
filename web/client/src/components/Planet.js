@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useTexture, Html } from "@react-three/drei";
-import { useGalleryStore } from "../store";
+import { useImageStore } from "../store2";
 
-const Planet = ({ planetColor, isActive, setIsActive }) => {
-  //   const [isActivePlanet, setIsActivePlanet] = useState(isActive);
+const Planet = ({ planetColor, isActive, setIsActive, ownerId }) => {
   const dragOver = (e) => {
     e.preventDefault();
   };
@@ -30,11 +29,13 @@ const Planet = ({ planetColor, isActive, setIsActive }) => {
     setAddedImage({
       imageSource: newUpload.data.data.url,
       imageDescription: newUpload.data.data.title,
+      ownerId,
     });
   };
   const [addedImage, setAddedImage] = useState({
     imageSource: "",
     imageDescription: "",
+    ownerId,
   });
 
   const uploadUrl = "https://api.imgbb.com/1/upload";
@@ -51,12 +52,12 @@ const Planet = ({ planetColor, isActive, setIsActive }) => {
     }
   };
 
-  let addToGallery = useGalleryStore((state) => state.addToGallery);
+  let addImage = useImageStore((state) => state.addImage);
 
   useEffect(() => {
     if (addedImage.imageSource) {
       console.log(addedImage);
-      addToGallery(addedImage);
+      addImage(addedImage);
     }
   }, [addedImage]);
 
