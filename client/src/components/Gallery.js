@@ -102,8 +102,12 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
 
   useFrame(scrollAnimation);
 
-  window.addEventListener("keydown", (e) => {
-    if (textRefs.current[attractTo].current) {
+  const keydownFunc = (e) => {
+    if (
+      textRefs &&
+      textRefs.current[attractTo] &&
+      textRefs.current[attractTo].current
+    ) {
       if (e.key === "Backspace")
         textRefs.current[attractTo].current.text = textRefs.current[
           attractTo
@@ -115,7 +119,11 @@ const Gallery = ({ pos, galleryId, planetColor }) => {
       }
       descriptions[attractTo] = textRefs.current[attractTo].current.text;
     }
-  });
+  };
+  useEffect(() => {
+    window.addEventListener("keydown", keydownFunc);
+    return () => window.removeEventListener("keydown", keydownFunc);
+  }, [keydownFunc]);
 
   const editMode = (i) => {
     attractTo = i;
