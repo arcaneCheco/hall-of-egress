@@ -11,3 +11,5 @@
 
 Fork the repo.
 From root directory, run `cd ./server ; npm i ; cd ../client ; npm i ; npm start`
+
+### To view a demo visit https://hall-of-egress.herokuapp.com/
